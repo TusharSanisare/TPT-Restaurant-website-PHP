@@ -26,37 +26,95 @@
   <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
   <!-- Customized Bootstrap Stylesheet -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Template Stylesheet -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
 </head>
 
+
+<?php
+
+session_start();
+if (empty($_SESSION['name'])) {
+  header("Location: login.php");
+}
+
+
+if (!isset($_REQUEST['action'])) {
+  $current_section = "admin";
+} else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "AddItem") {
+  $current_section = "add item";
+} else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "ViewItem") {
+  $current_section = "view item";
+} else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "admin") {
+  $current_section = "admin";
+} else {
+  $current_section = " ";
+}
+?>
+
+
+
+
+
+<?php
+
+include '../database/db_config.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "Add") {
+  $id = $_REQUEST['id'];
+  $name = $_REQUEST['name'];
+  $description = $_REQUEST['description'];
+  $price = $_REQUEST['price'];
+  $image_url = $_REQUEST['image'];
+  $type_of_meal = $_REQUEST['type_of_meal'];
+  $type_of_cuisine = $_REQUEST['type_of_cuisine'];
+  $vegetarian = $_REQUEST['vegetarian'];
+
+  if (!empty($id)) {
+  } else {
+    $stmt = $conn->prepare("INSERT INTO `tbl_food_items`(`name`, `description`, `price`, `image_url`, `type_of_meal`, `type_of_cuisine`, `vegetarian`) VALUES ('$name','$description','$price','$image_url','$type_of_meal','$type_of_cuisine','$vegetarian')");
+    $stmt->execute();
+
+
+    $select_stmt = $conn->prepare("SELECT * FROM tbl_food_items WHERE name = '$name' AND price = '$price' AND image_url = '$image_url'");
+    $select_stmt->execute();
+
+    $result = $select_stmt->get_result();
+    if ($result->num_rows > 0) {
+      echo "<h1 style='color:green'>Item added successfully!!</h1>";
+    } else {
+      echo "<h1 style='color:red'>Opps something went wrong... try again!!</h1>";
+    }
+
+    $current_section = "add item";
+
+    $stmt->close();
+    $conn->close();
+  }
+}
+
+?>
+
+
+
 <body>
+
   <div class="container-xxl bg-white p-0">
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-      <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-    <!-- Spinner End -->
-
-
     <!-- Navbar & Hero Start -->
     <div class="container-xxl position-relative p-0">
-      <!-- navbar start -->
-      <?php include './components/navbar.php'; ?>
-      <!-- navbar end -->
-
+      <!-- Navbar start -->
+      <?php include './adminNavbar.php'; ?>
+      <!-- Navbar end -->
       <div class="container-xxl py-5 bg-dark hero-header my-hero-header mb-5">
         <div class="container text-center my-5 pt-5 pb-4">
-          <h1 class="display-3 text-white mb-3 animated slideInDown">About Us</h1>
+          <h1 class="display-3 text-white mb-3 animated slideInDown">Admin Dashboard</h1>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-center text-uppercase">
-              <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Admin</a></li>
               <li class="breadcrumb-item"><a href="#">Pages</a></li>
-              <li class="breadcrumb-item text-white active" aria-current="page">About</li>
+              <li class="breadcrumb-item text-white active" aria-current="page"><?php echo $current_section ?></li>
             </ol>
           </nav>
         </div>
@@ -65,18 +123,17 @@
     <!-- Navbar & Hero End -->
 
 
-    <!-- About Start -->
-    <?php include './components/about-section.php'; ?>
-    <!-- About End -->
-
-
-    <!-- Team Start -->
-    <?php include './components/team-section.php'; ?>
-    <!-- Team End -->
+    <!-- ----------- mid section start ------------ -->
+    <?php
+    if ($current_section == "add item") {
+      include "addItem.php";
+    }
+    ?>
+    <!-- ------------ mid section end----------- -->
 
 
     <!-- Footer Start -->
-    <?php include './components/footer.php'; ?>
+    <?php include '../components/footer.php'; ?>
     <!-- Footer End -->
 
 
@@ -97,7 +154,7 @@
   <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
   <!-- Template Javascript -->
-  <script src="js/main.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 
 </html>

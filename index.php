@@ -31,6 +31,7 @@
   <!-- Template Stylesheet -->
   <link href="css/style.css" rel="stylesheet">
 </head>
+<!-- ?php include "./" ?> -->
 
 <body>
   <div class="container-xxl bg-white p-0">
@@ -46,7 +47,7 @@
     <!-- Navbar & Hero Start -->
     <div class="container-xxl position-relative p-0">
       <!-- Navbar start -->
-      <?php include './php-components/navbar.php'; ?>
+      <?php include './components/navbar.php'; ?>
       <!-- Navbar end -->
       <!-- Hero Section start -->
       <div class="container-xxl py-5 bg-dark hero-header my-hero-header mb-5">
@@ -69,37 +70,37 @@
 
 
     <!-- Service Start -->
-    <?php include "./php-components/service-section.php"; ?>
+    <?php include "./components/service-section.php"; ?>
     <!-- Service End -->
 
 
     <!-- About Start -->
-    <?php include "./php-components/about-section.php"; ?>
+    <?php include "./components/about-section.php"; ?>
     <!-- About End -->
 
 
     <!-- Menu Start -->
-    <?php include "./php-components/menu-section.php"; ?>
+    <?php include "./components/menu-section.php"; ?>
     <!-- Menu End -->
 
 
     <!-- Reservation Start -->
-    <?php include "./php-components/reservation-section.php"; ?>
+    <?php include "./components/reservation-section.php"; ?>
     <!-- Reservation Start -->
 
 
     <!-- Team Start -->
-    <?php include "./php-components/team-section.php"; ?>
+    <?php include "./components/team-section.php"; ?>
     <!-- Team End -->
 
 
     <!-- Testimonial Start -->
-    <?php include "./php-components/testimonial-section.php"; ?>
+    <?php include "./components/testimonial-section.php"; ?>
     <!-- Testimonial End -->
 
 
     <!-- Footer Start -->
-    <?php include "./php-components/footer.php"; ?>
+    <?php include "./components/footer.php"; ?>
     <!-- Footer End -->
 
 

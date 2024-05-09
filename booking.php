@@ -46,7 +46,7 @@
     <!-- Navbar & Hero Start -->
     <div class="container-xxl position-relative p-0">
       <!-- Navbar start -->
-      <?php include './php-components/navbar.php'; ?>
+      <?php include './components/navbar.php'; ?>
       <!-- Navbar end -->
 
       <div class="container-xxl py-5 bg-dark hero-header my-hero-header mb-5">
@@ -66,12 +66,12 @@
 
 
     <!-- Reservation Start -->
-    <?php include './php-components/reservation-section.php'; ?>
+    <?php include './components/reservation-section.php'; ?>
     <!-- Reservation Start -->
 
 
     <!-- Footer Start -->
-    <?php include './php-components/footer.php'; ?>
+    <?php include './components/footer.php'; ?>
     <!-- Footer End -->
 
 
