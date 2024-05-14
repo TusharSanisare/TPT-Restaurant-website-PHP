@@ -45,6 +45,8 @@ if (!isset($_REQUEST['action'])) {
   $current_section = "admin";
 } else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "AddItem") {
   $current_section = "add item";
+} else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "NewBookings") {
+  $current_section = "new bookings";
 } else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "ViewItem") {
   $current_section = "view item";
 } else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "admin") {
@@ -59,9 +61,7 @@ if (!isset($_REQUEST['action'])) {
 
 
 <?php
-
 include '../database/db_config.php';
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "Add") {
   $id = $_REQUEST['id'];
   $name = $_REQUEST['name'];
@@ -94,7 +94,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "Add") {
     $conn->close();
   }
 }
+?>
 
+
+<?php
+include '../database/db_config.php';
+if ($_SERVER['REQUEST_METHOD'] == "POST" && $_REQUEST['action'] == "Confirm Booking") {
+  echo "<h1>Confirm Booking</h1>";
+  $current_section = "new bookings";
+}
+if ($_SERVER['REQUEST_METHOD'] == "POST" && $_REQUEST['action'] == "Delete Booking") {
+  // $id = $_REQUEST['id'];
+
+  // i want to show alert message if user click on delete in alert then delete 
+
+  // $select_stmt = $conn->prepare("DELETE FROM tbl_reservations WHERE id = '$id'");
+  // $select_stmt->execute();
+  // $select_stmt->close();
+  // $conn->close();
+  // echo "<h1>Delete Booking</h1>" . $id;
+  // $current_section = "new bookings";
+}
 ?>
 
 
@@ -127,6 +147,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "Add") {
     <?php
     if ($current_section == "add item") {
       include "addItem.php";
+    }
+    if ($current_section == "new bookings") {
+      include "newBookings.php";
     }
     ?>
     <!-- ------------ mid section end----------- -->

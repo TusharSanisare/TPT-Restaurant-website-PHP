@@ -24,17 +24,18 @@ if (empty($_SESSION['name'])) {
           <div class="row justify-content-between text-left mb-4">
             <div class="form-group col-sm-6 flex-column d-flex">
               <label class="form-control-label px-3">Name<span class="text-danger"> *</span></label>
-              <input type="text" name="name" required>
+              <input type="text" name="name" placeholder="Enter dish name" maxlength="50" required>
             </div>
             <div class="form-group col-sm-6 flex-column d-flex">
               <label class="form-control-label px-3">Price<span class="text-danger"> *</span></label>
-              <input type="number" name="price" required>
+              <input type="number" name="price" placeholder="Enter food price" min="0" max="99999" required>
             </div>
           </div>
           <div class="row justify-content-between text-left mb-4">
             <div class="form-group col-sm-6 flex-column d-flex">
               <label class="form-control-label px-3">Meal<span class="text-danger"> *</span></label>
               <select name="type_of_meal" required>
+                <option value="" disabled selected>Select a Meal</option>
                 <option value="Snacks">Snacks</option>
                 <option value="Breakfast">Breakfast</option>
                 <option value="Lunch">Lunch</option>
@@ -45,6 +46,7 @@ if (empty($_SESSION['name'])) {
             <div class="form-group col-sm-6 flex-column d-flex">
               <label class="form-control-label px-3">Cuisine<span class="text-danger"> *</span></label>
               <select name="type_of_cuisine" required>
+                <option value="" disabled selected>Select a Cuisine</option>
                 <option value="Indian">Indian Cuisine</option>
                 <option value="Italian">Italian Cuisine</option>
                 <option value="French">French Cuisine</option>
@@ -71,17 +73,18 @@ if (empty($_SESSION['name'])) {
               </div>
             </div>
             <div class="form-group col-sm-6 flex-column d-flex">
-              <!-- <label class="form-control-label px-3">Select Image<span class="text-danger"> *</span></label> -->
-              <!-- <input type="file" name="image" required> -->
               <label class="form-control-label px-3">Image Url<span class="text-danger"> *</span></label>
-              <input type="text" name="image" required>
+              <input type="text" name="image" placeholder="Enter food image url" required>
             </div>
           </div>
           <div class="row justify-content-between text-left mb-4">
             <div class="form-group col-12 flex-column d-flex">
-              <label class="form-control-label px-3">Description<span class="text-danger"> *</span></label>
-              <textarea required name="description" id=""></textarea>
+              <label class="form-control-label px-3">
+                Description<span class="text-danger"> *</span> <span>(<span id="des_char_count">0</span>/200)</span>
+              </label>
+              <textarea id="dec_text_area" required maxlength="200" name="description" placeholder="Enter food description in 200 characters"></textarea>
             </div>
+
           </div>
           <div class="row">
             <div class="form-group col-sm-12 flex-column d-flex">
@@ -95,6 +98,18 @@ if (empty($_SESSION['name'])) {
 
 
 
+
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      let des_char_count = document.getElementById('des_char_count');
+      let dec_text_area = document.getElementById('dec_text_area');
+
+      dec_text_area.addEventListener('keyup', () => {
+        let len = dec_text_area.value.length;
+        des_char_count.innerText = len;
+      });
+    });
+  </script>
 
 </body>
 

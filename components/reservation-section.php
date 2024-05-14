@@ -12,6 +12,7 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "booking") {
 
   $name = $_REQUEST['name'];
+  $phone = $_REQUEST['phone'];
   $email = $_REQUEST['email'];
   $datetime = date('Y-m-d H:i:s', strtotime($_REQUEST['datetime']));
   $people = $_REQUEST['people'];
@@ -21,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "booking") {
 
   include 'database/db_config.php';
 
-  $stmt = $conn->prepare("INSERT INTO tbl_reservations (customer_name,customer_email,peoples,booking_date,customer_request) VALUES('$name','$email','$people','$datetime','$message')");
+  $stmt = $conn->prepare("INSERT INTO tbl_reservations (customer_name,customer_phone,customer_email,peoples,booking_date,customer_request) VALUES('$name','$phone','$email','$people','$datetime','$message')");
   $stmt->execute();
 
 
@@ -72,6 +73,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "booking") {
                 </div>
                 <div class="col-md-6">
                   <div class="form-floating">
+                    <input type="tel" class="form-control" name="phone" placeholder="Your Phone NO." maxlength="10" minlength="10" required>
+                    <label for="phone">Your Phone NO.</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating">
                     <input type="email" class="form-control" name="email" placeholder="Your Email" required>
                     <label for="email">Your Email</label>
                   </div>
@@ -102,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "booking") {
                 <div class="col-12">
                   <div class="form-floating">
                     <textarea class="form-control" placeholder="Special Request" name="message" style="height: 100px"></textarea>
-                    <label for="message">Special Request</label>
+                    <label for="message">Special Request (optional)</label>
                   </div>
                 </div>
                 <div class="col-12">

@@ -56,7 +56,7 @@
             <div class="col-lg-6 text-center text-lg-start">
               <h1 class="display-3 text-white animated slideInLeft">Enjoy Our<br>Delicious Meal</h1>
               <p class="text-white animated slideInLeft mb-4 pb-2">TPT Restaurants is fastest growing fast food chain restaurant in central India,in city of lakes, Bhopal (MP). The team is consistently working hard to delight its customer with fresh and most authentic food that is served ever. Enjoy a pleasant ambiance filled with lively and friendly people</p>
-              <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
+              <a href="booking.php" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
             </div>
             <div class="col-lg-6 text-center text-lg-end overflow-hidden">
               <img class="img-fluid" src="img/hero-thali.png" alt="">
