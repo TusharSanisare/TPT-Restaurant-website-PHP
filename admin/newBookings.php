@@ -128,7 +128,8 @@ $conn->close();
                         <td>
                           <form id="delete-form-<?php echo $i; ?>" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                             <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
-                            <input class="btn-delete" type="submit" name="action" value="Delete Booking">
+                            <!-- <button class="btn-delete" name="action" value="Delete Booking"> -->
+                            <button class="btn-delete" name="action" value="Delete Booking">Delete Booking</button>
                           </form>
                         </td>
                       </tr>
@@ -152,6 +153,8 @@ $conn->close();
       button.addEventListener("click", function(event) {
         if (confirm("Do you want to delete this booking?")) {
           document.getElementById('delete-form-' + index).submit();
+        } else {
+          event.preventDefault();
         }
       });
     });

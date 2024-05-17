@@ -96,15 +96,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST['action'])) {
     $stmt = $conn->prepare("UPDATE tbl_reservations SET booked_table = '$booked_table' WHERE id = '$id'");
 
     if ($stmt->execute()) {
-      // $select_stmt = $conn->prepare("SELECT customer_email FROM tbl_reservations WHERE id = '$id");
-      // $select_stmt->execute();
-      // $result = $select_stmt->get_result();
+      $select_stmt = $conn->prepare("SELECT * FROM tbl_reservations WHERE id = '$id");
+      $select_stmt->execute();
+      $result = $select_stmt->get_result();
 
-      // $to = $result[];
-      // $subject = "My subject";
+      // $to = "tsanisare@gmail.com";
+      // $subject = "TESTING";
       // $txt = "Hello world!";
-      // $headers = "From: webmaster@example.com" . "\r\n" .
-      //   "CC: somebodyelse@example.com";
+      // $headers = "From: tsanisare@gmail.com" . "\r\n" .
+      //   "CC: tsanisare@gmail.com";
 
       // mail($to, $subject, $txt, $headers);
 
