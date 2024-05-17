@@ -32,92 +32,105 @@
   <link href="../css/style.css" rel="stylesheet">
 </head>
 
-
 <?php
-
 session_start();
 if (empty($_SESSION['name'])) {
   header("Location: login.php");
+  exit();
 }
 
-
-if (!isset($_REQUEST['action'])) {
-  $current_section = "admin";
-} else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "AddItem") {
-  $current_section = "add item";
-} else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "NewBookings") {
-  $current_section = "new bookings";
-} else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "ViewItem") {
-  $current_section = "view item";
-} else if ($_SERVER["REQUEST_METHOD"] == "GET" && $_REQUEST['action'] == "admin") {
-  $current_section = "admin";
-} else {
-  $current_section = " ";
-}
-?>
-
-
-
-
-
-<?php
-include '../database/db_config.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "Add") {
-  $id = $_REQUEST['id'];
-  $name = $_REQUEST['name'];
-  $description = $_REQUEST['description'];
-  $price = $_REQUEST['price'];
-  $image_url = $_REQUEST['image'];
-  $type_of_meal = $_REQUEST['type_of_meal'];
-  $type_of_cuisine = $_REQUEST['type_of_cuisine'];
-  $vegetarian = $_REQUEST['vegetarian'];
-
-  if (!empty($id)) {
-  } else {
-    $stmt = $conn->prepare("INSERT INTO `tbl_food_items`(`name`, `description`, `price`, `image_url`, `type_of_meal`, `type_of_cuisine`, `vegetarian`) VALUES ('$name','$description','$price','$image_url','$type_of_meal','$type_of_cuisine','$vegetarian')");
-    $stmt->execute();
-
-
-    $select_stmt = $conn->prepare("SELECT * FROM tbl_food_items WHERE name = '$name' AND price = '$price' AND image_url = '$image_url'");
-    $select_stmt->execute();
-
-    $result = $select_stmt->get_result();
-    if ($result->num_rows > 0) {
-      echo "<h1 style='color:green'>Item added successfully!!</h1>";
-    } else {
-      echo "<h1 style='color:red'>Opps something went wrong... try again!!</h1>";
+$current_section = "admin";
+if (isset($_REQUEST['action'])) {
+  $action = $_REQUEST['action'];
+  if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if ($action == "AddItem") {
+      $current_section = "add item";
+    } else if ($action == "NewBookings") {
+      $current_section = "new bookings";
+    } else if ($action == "ViewItem") {
+      $current_section = "view item";
+    } else if ($action == "admin") {
+      $current_section = "admin";
     }
-
-    $current_section = "add item";
-
-    $stmt->close();
-    $conn->close();
   }
 }
 ?>
 
-
 <?php
 include '../database/db_config.php';
-if ($_SERVER['REQUEST_METHOD'] == "POST" && $_REQUEST['action'] == "Confirm Booking") {
-  echo "<h1>Confirm Booking</h1>";
-  $current_section = "new bookings";
-}
-if ($_SERVER['REQUEST_METHOD'] == "POST" && $_REQUEST['action'] == "Delete Booking") {
-  // $id = $_REQUEST['id'];
 
-  // i want to show alert message if user click on delete in alert then delete 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST['action'])) {
+  $action = $_REQUEST['action'];
 
-  // $select_stmt = $conn->prepare("DELETE FROM tbl_reservations WHERE id = '$id'");
-  // $select_stmt->execute();
-  // $select_stmt->close();
-  // $conn->close();
-  // echo "<h1>Delete Booking</h1>" . $id;
-  // $current_section = "new bookings";
+  if ($action == "Add") {
+    $id = $_REQUEST['id'];
+    $name = $_REQUEST['name'];
+    $description = $_REQUEST['description'];
+    $price = $_REQUEST['price'];
+    $image_url = $_REQUEST['image'];
+    $type_of_meal = $_REQUEST['type_of_meal'];
+    $type_of_cuisine = $_REQUEST['type_of_cuisine'];
+    $vegetarian = $_REQUEST['vegetarian'];
+
+
+    if (!empty($id)) {
+      //uodate wala logic
+    } else {
+      $stmt = $conn->prepare("INSERT INTO `tbl_food_items`(`name`, `description`, `price`, `image_url`, `type_of_meal`, `type_of_cuisine`, `vegetarian`) VALUES ('$name','$description','$price','$image_url','$type_of_meal','$type_of_cuisine','$vegetarian')");
+      $stmt->execute();
+
+      if ($stmt->execute()) {
+        echo "<h3 style='color:white;background:green; text-align:center;'>Item added successfully!!</h3>";
+      } else {
+        echo "<h3 style='color:white;background:red; text-align:center;'>Oops, something went wrong... try again!!</h3>";
+      }
+      $current_section = "add item";
+    }
+  }
+
+  if ($action == "Confirm Booking") {
+
+    $booked_table = $_REQUEST['booked_table'];
+    $id = $_REQUEST['id'];
+
+    $stmt = $conn->prepare("UPDATE tbl_reservations SET booked_table = '$booked_table' WHERE id = '$id'");
+
+    if ($stmt->execute()) {
+      // $select_stmt = $conn->prepare("SELECT customer_email FROM tbl_reservations WHERE id = '$id");
+      // $select_stmt->execute();
+      // $result = $select_stmt->get_result();
+
+      // $to = $result[];
+      // $subject = "My subject";
+      // $txt = "Hello world!";
+      // $headers = "From: webmaster@example.com" . "\r\n" .
+      //   "CC: somebodyelse@example.com";
+
+      // mail($to, $subject, $txt, $headers);
+
+
+      echo "<h3 style='color:white;background:green; text-align:center;'>Booking confirmation mail sended!!</h3>";
+    } else {
+      echo "<h3 style='color:white;background:red; text-align:center;'>Oops, something went wrong... try again!!</h3>";
+    }
+    $current_section = "new bookings";
+  }
+
+  if ($action == "Delete Booking") {
+    $id = $_REQUEST['id'];
+    $stmt = $conn->prepare("DELETE FROM tbl_reservations WHERE id = '$id'");
+    if ($stmt->execute()) {
+      echo "<h3 style='color:white;background:green; text-align:center;'>Booking deleted successfully</h3>";
+    } else {
+      echo "<h3 style='color:white;background:red; text-align:center;'>Failed to delete booking</h3>";
+    }
+    $stmt->close();
+    $current_section = "new bookings";
+  }
+
+  $conn->close();
 }
 ?>
-
-
 
 <body>
 
@@ -142,7 +155,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_REQUEST['action'] == "Delete Booki
     </div>
     <!-- Navbar & Hero End -->
 
-
     <!-- ----------- mid section start ------------ -->
     <?php
     if ($current_section == "add item") {
@@ -154,11 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && $_REQUEST['action'] == "Delete Booki
     ?>
     <!-- ------------ mid section end----------- -->
 
-
     <!-- Footer Start -->
     <?php include '../components/footer.php'; ?>
     <!-- Footer End -->
-
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>

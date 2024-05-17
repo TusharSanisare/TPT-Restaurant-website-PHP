@@ -18,29 +18,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "booking") {
   $people = $_REQUEST['people'];
   $message = $_REQUEST['message'];
 
-  // echo $name . " " . $email . " " . $datetime . " " . $people . " " . $message;
-
   include 'database/db_config.php';
 
-  $stmt = $conn->prepare("INSERT INTO tbl_reservations (customer_name,customer_phone,customer_email,peoples,booking_date,customer_request) VALUES('$name','$phone','$email','$people','$datetime','$message')");
+  $stmt = $conn->prepare("SELECT * FROM tbl_reservations WHERE customer_name = '$name' AND customer_email = '$email' AND booking_date = '$datetime'");
   $stmt->execute();
+  $result = $stmt->get_result();
 
-
-  $select_stmt = $conn->prepare("SELECT * FROM tbl_reservations WHERE customer_name = '$name' AND customer_email = '$email' AND booking_date = '$datetime'");
-  $select_stmt->execute();
-
-  $result = $select_stmt->get_result();
   if ($result->num_rows > 0) {
-    echo "<div style='color:green; width:100%; display:flex; flex-direction: column; justify-content:center; align-items:center;'>
-        <h1 style='color:green;'>Success!!</h1>
-        <p>You will receive payment and confirmation Email on <a href='mailto:" . $email . "' style='color: blue; text-decoration: underline;'>" . $email . "</a> in 1-2 hours</p>
-      </div>";
+    $current_section = "add item";
   } else {
-    echo "<h1 style='color:red'>Opps something went wrong... try again!!</h1>";
+    $stmt = $conn->prepare("INSERT INTO tbl_reservations (customer_name,customer_phone,customer_email,peoples,booking_date,customer_request) VALUES('$name','$phone','$email','$people','$datetime','$message')");
+    if ($stmt->execute()) {
+      echo "<div style='color:white;background:green; width:100%; display:flex; flex-direction: column; justify-content:center; align-items:center;'>
+        <h1 style='color:white;'>Success!!</h1>
+        <p>You will receive payment and confirmation Email on <a href='mailto:" . $email . "' style='color: white; text-decoration: underline;'>" . $email . "</a> in 1-2 hours</p>
+      </div>";
+    } else {
+      echo "<h1 style='color:white;background:red;text-align:center' >Opps something went wrong... try again!!</h1>";
+    }
   }
 
   $current_section = "add item";
-
   $stmt->close();
   $conn->close();
 }
@@ -73,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_REQUEST['action'] == "booking") {
                 </div>
                 <div class="col-md-6">
                   <div class="form-floating">
-                    <input type="tel" class="form-control" name="phone" placeholder="Your Phone NO." maxlength="10" minlength="10" required>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your Phone NO." maxlength="10" minlength="10" required pattern="\d{10}" oninput="validatePhone(this)">
                     <label for="phone">Your Phone NO.</label>
                   </div>
                 </div>
