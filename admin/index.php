@@ -93,26 +93,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST['action'])) {
     $booked_table = $_REQUEST['booked_table'];
     $id = $_REQUEST['id'];
 
-    $stmt = $conn->prepare("UPDATE tbl_reservations SET booked_table = '$booked_table' WHERE id = '$id'");
+    $stmt = $conn->prepare("UPDATE tbl_reservations SET booked_table = '$booked_table' WHERE id = NULL");
 
     if ($stmt->execute()) {
-      $select_stmt = $conn->prepare("SELECT * FROM tbl_reservations WHERE id = '$id");
+      $select_stmt = $conn->prepare("SELECT * FROM tbl_reservations WHERE id = '$id'");
       $select_stmt->execute();
       $result = $select_stmt->get_result();
-
-      // $to = "tsanisare@gmail.com";
-      // $subject = "TESTING";
-      // $txt = "Hello world!";
-      // $headers = "From: tsanisare@gmail.com" . "\r\n" .
-      //   "CC: tsanisare@gmail.com";
-
-      // mail($to, $subject, $txt, $headers);
+      $row = $result->fetch_assoc();
 
 
-      echo "<h3 style='color:white;background:green; text-align:center;'>Booking confirmation mail sended!!</h3>";
-    } else {
-      echo "<h3 style='color:white;background:red; text-align:center;'>Oops, something went wrong... try again!!</h3>";
+      // $to = "arvindkmrgpt@gmail.com";
+      $to = "tsanisare@gmail.com";
+      $subject = "Table Booking";
+      $message = "Your table has been booked.";
+      $headers = "MIME-Version: 1.0" . "\r\n";
+      $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+      $headers .= 'From: tsanisare@gmail.com' . "\r\n"; // Replace with your email
+
+      mail($to, $subject, $message, $headers);
+
+      echo ("adoisjisahisuhdsih");
     }
+
+    //   echo "<h3 style='color:white;background:green; text-align:center;'>Booking confirmation mail sended!!</h3>";
+    // } else {
+    //   echo "<h3 style='color:white;background:red; text-align:center;'>Oops, something went wrong... try again!!</h3>";
+    // }
     $current_section = "new bookings";
   }
 
