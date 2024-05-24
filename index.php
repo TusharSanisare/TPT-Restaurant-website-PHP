@@ -31,7 +31,7 @@
   <!-- Template Stylesheet -->
   <link href="css/style.css" rel="stylesheet">
 </head>
-<!-- ?php include "./" ?> -->
+<?php include './database/db_config.php'; ?>
 
 <body>
   <div class="container-xxl bg-white p-0">

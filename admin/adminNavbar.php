@@ -39,8 +39,8 @@
       <div class="navbar-nav ms-auto py-0 pe-4">
         <a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=admin" class="nav-item nav-link <?php echo isActive("admin") ?>">admin</a>
         <a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=AddItem" class="nav-item nav-link <?php echo isActive("AddItem") ?>">Add Item</a>
-        <a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=ViewItem" class="nav-item nav-link <?php echo isActive("ViewItem") ?>">View Item</a>
         <a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=NewBookings" class="nav-item nav-link <?php echo isActive("NewBookings") ?>">New Bookings</a>
+        <a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=printLogs" class="nav-item nav-link <?php echo isActive("printLogs") ?>">Print Logs</a>
       </div>
       <a href="<?php echo $_SERVER['PHP_SELF'] . '?action=logout' ?>" class="btn btn-primary py-2 px-4">Logout</a>
     </div>

@@ -33,6 +33,15 @@
 </head>
 
 <?php
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+?>
+
+<?php
 session_start();
 if (empty($_SESSION['name'])) {
   header("Location: login.php");
@@ -47,8 +56,9 @@ if (isset($_REQUEST['action'])) {
       $current_section = "add item";
     } else if ($action == "NewBookings") {
       $current_section = "new bookings";
-    } else if ($action == "ViewItem") {
-      $current_section = "view item";
+    } else if ($action == "printLogs") {
+      header("Location: printLogs.php");
+      // $current_section = "printLogs";
     } else if ($action == "admin") {
       $current_section = "admin";
     }
@@ -93,32 +103,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST['action'])) {
     $booked_table = $_REQUEST['booked_table'];
     $id = $_REQUEST['id'];
 
-    $stmt = $conn->prepare("UPDATE tbl_reservations SET booked_table = '$booked_table' WHERE id = NULL");
+    $stmt = $conn->prepare("UPDATE tbl_reservations SET booked_table = '$booked_table' WHERE id = $id");
 
     if ($stmt->execute()) {
       $select_stmt = $conn->prepare("SELECT * FROM tbl_reservations WHERE id = '$id'");
       $select_stmt->execute();
       $result = $select_stmt->get_result();
-      $row = $result->fetch_assoc();
+      $customer = $result->fetch_assoc();
 
 
-      // $to = "arvindkmrgpt@gmail.com";
-      $to = "tsanisare@gmail.com";
-      $subject = "Table Booking";
-      $message = "Your table has been booked.";
-      $headers = "MIME-Version: 1.0" . "\r\n";
-      $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-      $headers .= 'From: tsanisare@gmail.com' . "\r\n"; // Replace with your email
+      try {
 
-      mail($to, $subject, $message, $headers);
+        require '../PHPMailer/Exception.php';
+        require '../PHPMailer/PHPMailer.php';
+        require '../PHPMailer/SMTP.php';
 
-      echo ("adoisjisahisuhdsih");
+        $mail = new PHPMailer(true);
+
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'tsanisare@gmail.com';
+        $mail->Password   = 'bvnz fpbh cbmu amyj';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port       = 465;
+
+        $mail->setFrom('tsanisare@gmail.com', 'TPT Restaurant');
+        $mail->addAddress($customer['customer_email'], $customer['customer_name']);
+
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Table Booking Confirmed';
+        $mail->Body    = "<h1>Dear Customer " . $customer['customer_name'] . " </h1><h3>your request for table has been confirmed YOUR TABLE NUMBER IS " . $booked_table . " </h3>";
+
+        $mail->send();
+        echo "<h3 style='color:white;background:green; text-align:center;'>Booking confirmation mail sended!!</h3>";
+      } catch (Exception $e) {
+        echo "<h3 style='color:white;background:red; text-align:center;'>Oops, something went wrong... try again!!</h3>";
+      }
+    } else {
+      echo "<h3 style='color:white;background:red; text-align:center;'>Oops, something went wrong... try again!!</h3>";
     }
 
-    //   echo "<h3 style='color:white;background:green; text-align:center;'>Booking confirmation mail sended!!</h3>";
-    // } else {
-    //   echo "<h3 style='color:white;background:red; text-align:center;'>Oops, something went wrong... try again!!</h3>";
-    // }
+
     $current_section = "new bookings";
   }
 
@@ -165,9 +192,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST['action'])) {
     <?php
     if ($current_section == "add item") {
       include "addItem.php";
-    }
-    if ($current_section == "new bookings") {
+    } else if ($current_section == "new bookings") {
       include "newBookings.php";
+    } else if ($current_section == "printLogs") {
+      include "printLogs.php";
+    } else {
+      echo "<h3 style='color:white;background:orange; text-align:center;'>Wellcome Admin</h3>";
     }
     ?>
     <!-- ------------ mid section end----------- -->

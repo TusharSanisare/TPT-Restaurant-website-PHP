@@ -8,7 +8,7 @@
 </head>
 
 <?php
-include './database/db_config.php';
+
 $current_page = basename($_SERVER['PHP_SELF']);
 $error = null;
 
