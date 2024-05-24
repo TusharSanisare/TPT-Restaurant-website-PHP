@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST['action'])) {
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'tsanisare@gmail.com';
-        $mail->Password   = 'bvnz fpbh cbmu amyj';
+        $mail->Password   = 'secreat...... through env file i gauss..';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
 
