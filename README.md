@@ -27,12 +27,23 @@ The website features a modern and responsive design, ensuring a smooth user expe
 
 ### Online Table Booking
 This feature allows users to book a table online by filling out a form with details such as name, date, phone, email, number of people, and special requests. Once the booking is confirmed by the admin, the user automatically receives a confirmation email. This feature provides a seamless and user-friendly experience for customers.
-**Screenshot:**
 
-![Online Table Booking](path/to/your/screenshot1.png)
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="img/tableBooking1.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/tableBooking2.png" alt="Online Table Booking" style="width: 49%;"/>
+</div>
 
 ### Admin Panel
 The authenticated admin panel provides options for the restaurant's admin to manage the website. Admins can add or update menu items, view and confirm booking requests, delete bookings, and print logs of previous bookings in PDF or Word format. This ensures that the restaurant management process is smooth and efficient.
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="img/admin1.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/admin2.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/admin3.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/admin4.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/admin5.png" alt="Online Table Booking" style="width: 49%;"/>
+</div>
+
 
 ### Menu Display
 Users can view the restaurant's menu online, making it easy for them to explore the offerings before booking a table or visiting the restaurant.
