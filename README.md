@@ -11,6 +11,12 @@ A full-stack website developed using PHP, designed for TPT Restaurant & Cafe to 
 
 ## Features
 
+### Responsive UI/UX
+The website features a modern and responsive design, ensuring a smooth user experience across devices. Whether users access the site from a desktop, tablet, or smartphone, the interface adapts seamlessly to provide a consistent and visually appealing experience.
+**Screenshot:**
+
+![Online Table Booking](path/to/your/screenshot1.png)
+
 ### Online Table Booking
 This feature allows users to book a table online by filling out a form with details such as name, date, phone, email, number of people, and special requests. Once the booking is confirmed by the admin, the user automatically receives a confirmation email. This feature provides a seamless and user-friendly experience for customers.
 **Screenshot:**
@@ -19,9 +25,6 @@ This feature allows users to book a table online by filling out a form with deta
 
 ### Admin Panel
 The authenticated admin panel provides options for the restaurant's admin to manage the website. Admins can add or update menu items, view and confirm booking requests, delete bookings, and print logs of previous bookings in PDF or Word format. This ensures that the restaurant management process is smooth and efficient.
-
-### Responsive UI/UX
-The website features a modern and responsive design, ensuring a smooth user experience across devices. Whether users access the site from a desktop, tablet, or smartphone, the interface adapts seamlessly to provide a consistent and visually appealing experience.
 
 ### Menu Display
 Users can view the restaurant's menu online, making it easy for them to explore the offerings before booking a table or visiting the restaurant.
