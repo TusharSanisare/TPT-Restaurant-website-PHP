@@ -13,20 +13,17 @@ A full-stack website developed using PHP, designed for TPT Restaurant & Cafe to 
 
 ### Responsive UI/UX
 The website features a modern and responsive design, ensuring a smooth user experience across devices. Whether users access the site from a desktop, tablet, or smartphone, the interface adapts seamlessly to provide a consistent and visually appealing experience.
-**Screenshot:**
-![Online Table Booking](img/homepage1.png)
-**Screenshot:**
-![Online Table Booking](img/homepage2.png)
-**Screenshot:**
-![Online Table Booking](img/homepage3.png)
-**Screenshot:**
-![Online Table Booking](img/homepage4.png)
-**Screenshot:**
-![Online Table Booking](img/homepage6.png)
-**Screenshot:**
-![Online Table Booking](img/homepage7.png)
-**Screenshot:**
-![Online Table Booking](img/homepage8.png)
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="img/homepage1.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/homepage2.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/homepage3.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/homepage4.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/homepage6.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/homepage7.png" alt="Online Table Booking" style="width: 49%;"/>
+  <img src="img/homepage8.png" alt="Online Table Booking" style="width: 49%;"/>
+</div>
+
 
 ### Online Table Booking
 This feature allows users to book a table online by filling out a form with details such as name, date, phone, email, number of people, and special requests. Once the booking is confirmed by the admin, the user automatically receives a confirmation email. This feature provides a seamless and user-friendly experience for customers.
