@@ -48,11 +48,26 @@ The authenticated admin panel provides options for the restaurant's admin to man
 ### Menu Display
 Users can view the restaurant's menu online, making it easy for them to explore the offerings before booking a table or visiting the restaurant.
 
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="img/homepage3.png" alt="Online Table Booking" style="width: 49%;"/>
+</div>
+
+
 ### Testimonials
 Display customer feedback and testimonials to build trust and showcase the positive experiences of previous visitors.
 
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="img/homepage7.png" alt="Online Table Booking" style="width: 49%;"/>
+</div>
+
 ### Location & Contact
 This section provides information about the restaurant's location and contact details, making it easy for users to find and connect with the restaurant.
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="img/locationpage.png" alt="Online Table Booking" style="width: 49%;"/>
+</div>
+
+
 
 ## Tech Stack
 - **Frontend**: HTML, CSS, JavaScript
